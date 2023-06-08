@@ -1,6 +1,7 @@
 import express from "express"
 import morgan from "morgan"
 import cors from "cors"
+import conn from "./src/db";
 
 class Server{
     public app: express.Application = express();
@@ -13,6 +14,7 @@ class Server{
             cors()
           );
         this.listen();
+        this.connectToDatabase()
     }
 
     public listen(){
@@ -20,5 +22,15 @@ class Server{
             console.log("Server Listening on port",this.port)
         })
     }
+    private async connectToDatabase() {
+        try {
+          await conn.authenticate();
+          console.log("BD CONECTADA");
+          await conn.sync({ force: false });
+          console.log("BD Sincronizada");
+        } catch (error) {
+          console.error("Error conexion BD", error);
+        }
+      }
 }
 new Server()

@@ -4,8 +4,8 @@
     "private": true,
     "scripts": {
         "dev": "next dev",
-        "build": "next build",
-        "start": "tsc && node dist/index.js",
+        "build": "tsc",
+        "start": "tsc && nodemon dist/index.js",
         "lint": "next lint"
     },
     "dependencies": {
@@ -17,8 +17,11 @@
         "cors": "^2.8.5",
         "dotenv": "^16.1.4",
         "express": "^4.18.2",
+        "fs": "^0.0.1-security",
         "morgan": "^1.10.0",
         "mysql": "^2.18.1",
+        "path": "^0.12.7",
+        "pg": "^8.11.0",
         "sequelize": "^6.32.0",
         "typeorm": "^0.3.16",
         "typeorm-naming-strategies": "^4.1.0",
