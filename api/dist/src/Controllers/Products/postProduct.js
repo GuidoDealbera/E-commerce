@@ -13,7 +13,8 @@ const { conn } = require("../../db");
 const { Product } = conn.models;
 const postProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { code, name, description, photos, price, category, heading } = req.body;
+        const { code, name, description, photos, price, category, heading, stock } = req.body;
+        console.log(req.body);
         const check1 = yield Product.findOne({ where: {
                 code: code
             } });
@@ -21,11 +22,17 @@ const postProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
                 name: name
             } });
         if (!check1 && !check2) {
-            const response = yield Product.create({ name, description, code, photos, category, price, heading });
-            return res.json(response);
+            const newProduct = yield Product.create({
+                name, description, code, photos,
+                category, price, stock, heading
+            });
+            return res.json(newProduct);
         }
         if (check1) {
-            return res.status();
+            return res.status(400).send("El codigo ya existe");
+        }
+        if (check2) {
+            return res.status(401).send("Ya existe un producto con ese nombre");
         }
     }
     catch (error) {
