@@ -6,5 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const router = (0, express_1.default)();
 const getAllProducts_1 = __importDefault(require("../Controllers/Products/getAllProducts"));
+const postProduct_1 = __importDefault(require("../Controllers/Products/postProduct"));
 router.get("/getAllProducts", getAllProducts_1.default);
+router.post("/postProduct", postProduct_1.default);
 exports.default = router;

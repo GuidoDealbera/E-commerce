@@ -22,13 +22,16 @@ exports.default = (sequelize) => {
             unique: true
         },
         photos: {
-            type: sequelize_1.DataTypes.STRING,
+            type: sequelize_1.DataTypes.ARRAY(sequelize_1.DataTypes.STRING),
         },
         category: {
             type: sequelize_1.DataTypes.STRING,
             allowNull: false,
         },
         price: {
+            type: sequelize_1.DataTypes.INTEGER,
+        },
+        stock: {
             type: sequelize_1.DataTypes.INTEGER,
         },
         //Rubro ? ver si es de utilidad

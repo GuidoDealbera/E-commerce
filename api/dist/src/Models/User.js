@@ -46,5 +46,7 @@ exports.default = (sequelize) => {
             type: sequelize_1.DataTypes.BOOLEAN,
             defaultValue: false,
         },
+    }, {
+        timestamps: false
     });
 };
