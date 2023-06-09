@@ -15,7 +15,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const morgan_1 = __importDefault(require("morgan"));
 const cors_1 = __importDefault(require("cors"));
-const db_1 = __importDefault(require("./src/db"));
+//import conn from "./src/db";
+const { conn } = require("./src/db");
+const index_1 = __importDefault(require("./src/Routes/index"));
 class Server {
     constructor() {
         this.app = (0, express_1.default)();
@@ -24,6 +26,7 @@ class Server {
         this.app.use(express_1.default.urlencoded({ extended: true }));
         this.app.use((0, morgan_1.default)("dev"));
         this.app.use((0, cors_1.default)());
+        this.app.use("/", index_1.default);
         this.listen();
         this.connectToDatabase();
     }
@@ -35,9 +38,9 @@ class Server {
     connectToDatabase() {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                yield db_1.default.authenticate();
+                yield conn.authenticate();
                 console.log("BD CONECTADA");
-                yield db_1.default.sync({ force: false });
+                yield conn.sync({ force: false });
                 console.log("BD Sincronizada");
             }
             catch (error) {

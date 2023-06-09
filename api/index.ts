@@ -1,7 +1,9 @@
 import express from "express"
 import morgan from "morgan"
 import cors from "cors"
-import conn from "./src/db";
+//import conn from "./src/db";
+const {conn}= require("./src/db")
+import router from "./src/Routes/index"
 
 class Server{
     public app: express.Application = express();
@@ -13,6 +15,7 @@ class Server{
         this.app.use(
             cors()
           );
+        this.app.use("/",router);
         this.listen();
         this.connectToDatabase()
     }

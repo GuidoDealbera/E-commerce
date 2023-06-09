@@ -8,6 +8,7 @@ const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const fs = require("fs");
 const path = require("path");
+const Product_1 = __importDefault(require("./Models/Product"));
 const { DB_CONEX } = process.env;
 const sequelize = new Sequelize(DB_CONEX, {
     logging: false,
@@ -27,6 +28,6 @@ fs.readdirSync(path.join(__dirname, "/Models"))
 //   entry[1],
 // ]);
 // sequelize.models = Object.fromEntries(capsEntries);
-// const { } =
-//   sequelize.models;
-exports.default = sequelize;
+const { Product, User } = sequelize.models;
+(0, Product_1.default)(sequelize);
+module.exports = Object.assign(Object.assign({}, sequelize.models), { conn: sequelize });

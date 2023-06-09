@@ -2,7 +2,7 @@ import { DataTypes } from "sequelize";
 
 export default (sequelize: any) => {
     sequelize.define(
-        "User",
+        "Product",
         {
             id: {
                 type: DataTypes.UUID,
@@ -11,41 +11,30 @@ export default (sequelize: any) => {
             },
             name: {
                 type: DataTypes.STRING,
+                allowNull:false,
+                unique: true
             },
-            lastName: {
+            description: {
                 type: DataTypes.STRING,
             },
-            username: {
+            code:{
+                type: DataTypes.INTEGER,
+                allowNull: false,
+                unique: true
+            },
+            photos: {
+                type: DataTypes.STRING,
+            },
+            category: {
                 type: DataTypes.STRING,
                 allowNull: false,
-                unique: true,
             },
-            email: {
+            price: {
+                type: DataTypes.INTEGER,
+            },
+            //Rubro ? ver si es de utilidad
+            heading: {
                 type: DataTypes.STRING,
-                allowNull: false,
-            },
-            password: {
-                type: DataTypes.STRING,
-                allowNull: false,
-            },
-            profilePhoto: {
-                type: DataTypes.STRING,
-            },
-            phone: {
-                type: DataTypes.STRING,
-            },
-            address: {
-                type: DataTypes.STRING,
-            },
-            postalCode: {
-                type: DataTypes.STRING,
-            },
-            interests: {
-                type: DataTypes.ARRAY,
-            },
-            seller: {
-                type: DataTypes.BOOLEAN,
-                defaultValue: false,
             },
         },
         {
