@@ -3,9 +3,9 @@
     "version": "0.1.0",
     "private": true,
     "scripts": {
-        "dev": "next dev",
+        "dev": "tsc && npm start",
         "build": "tsc",
-        "start": "tsc && nodemon dist/index.js",
+        "start": "nodemon -e ts --exec ts-node index.ts",
         "lint": "next lint"
     },
     "dependencies": {
