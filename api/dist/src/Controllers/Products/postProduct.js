@@ -14,6 +14,7 @@ const { Product } = conn.models;
 const postProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { code, name, description, photos, price, category, heading, stock } = req.body;
+        console.log(req.body);
         const check1 = yield Product.findOne({ where: {
                 code: code
             } });

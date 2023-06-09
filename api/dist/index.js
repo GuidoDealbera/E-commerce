@@ -40,7 +40,7 @@ class Server {
             try {
                 yield conn.authenticate();
                 console.log("BD CONECTADA");
-                yield conn.sync({ force: false });
+                yield conn.sync({ force: true });
                 console.log("BD Sincronizada");
             }
             catch (error) {

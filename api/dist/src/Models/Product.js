@@ -2,7 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_1 = require("sequelize");
 exports.default = (sequelize) => {
-    sequelize.define("Product", {
+    class Product extends sequelize_1.Model {
+    }
+    Product.init({
         id: {
             type: sequelize_1.DataTypes.UUID,
             primaryKey: true,
@@ -11,7 +13,7 @@ exports.default = (sequelize) => {
         name: {
             type: sequelize_1.DataTypes.STRING,
             allowNull: false,
-            unique: true
+            unique: true,
         },
         description: {
             type: sequelize_1.DataTypes.STRING,
@@ -19,7 +21,7 @@ exports.default = (sequelize) => {
         code: {
             type: sequelize_1.DataTypes.INTEGER,
             allowNull: false,
-            unique: true
+            unique: true,
         },
         photos: {
             type: sequelize_1.DataTypes.ARRAY(sequelize_1.DataTypes.STRING),
@@ -34,11 +36,13 @@ exports.default = (sequelize) => {
         stock: {
             type: sequelize_1.DataTypes.INTEGER,
         },
-        //Rubro ? ver si es de utilidad
         heading: {
             type: sequelize_1.DataTypes.STRING,
         },
     }, {
-        timestamps: false
+        sequelize,
+        timestamps: false,
+        modelName: "Product",
     });
+    return Product;
 };

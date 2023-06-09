@@ -5,6 +5,7 @@ const { Product } = conn.models;
 const postProduct = async (req:any,res:any) =>{
     try {
         const { code,name,description,photos,price,category,heading,stock}= req.body
+        console.log(req.body)
         const check1 = await Product.findOne({where:{
             code: code
         }})

@@ -28,4 +28,6 @@ fs.readdirSync(path.join(__dirname, "/Models"))
 (0, Product_1.default)(sequelize);
 (0, User_1.default)(sequelize);
 const { Product, User } = sequelize.models;
+Product.belongsToMany(User, { through: "user_products", timestamps: false });
+User.belongsToMany(Product, { through: "user_products", timestamps: false });
 module.exports = Object.assign(Object.assign({}, sequelize.models), { conn: sequelize });
