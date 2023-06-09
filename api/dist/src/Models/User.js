@@ -2,7 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_1 = require("sequelize");
 exports.default = (sequelize) => {
-    sequelize.define("User", {
+    class User extends sequelize_1.Model {
+    }
+    User.init({
         id: {
             type: sequelize_1.DataTypes.UUID,
             primaryKey: true,
@@ -47,6 +49,9 @@ exports.default = (sequelize) => {
             defaultValue: false,
         },
     }, {
-        timestamps: false
+        sequelize,
+        timestamps: false,
+        modelName: "User",
     });
+    return User;
 };
