@@ -11,13 +11,25 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const { conn } = require("../../db");
 const { Product } = conn.models;
-const getAllProducts = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const postProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const response = yield Product.findAll();
-        return res.json(response);
+        const { code, name, description, photos, price, category, heading } = req.body;
+        const check1 = yield Product.findOne({ where: {
+                code: code
+            } });
+        const check2 = yield Product.findOne({ where: {
+                name: name
+            } });
+        if (!check1 && !check2) {
+            const response = yield Product.create({ name, description, code, photos, category, price, heading });
+            return res.json(response);
+        }
+        if (check1) {
+            return res.status();
+        }
     }
     catch (error) {
         res.status(500).json({ error: error.message });
     }
 });
-exports.default = getAllProducts;
+exports.default = postProduct;

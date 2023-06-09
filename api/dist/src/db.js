@@ -9,6 +9,7 @@ dotenv_1.default.config();
 const fs = require("fs");
 const path = require("path");
 const Product_1 = __importDefault(require("./Models/Product"));
+const User_1 = __importDefault(require("./Models/User"));
 const { DB_CONEX } = process.env;
 const sequelize = new Sequelize(DB_CONEX, {
     logging: false,
@@ -21,13 +22,12 @@ fs.readdirSync(path.join(__dirname, "/Models"))
     .forEach((file) => {
     modelDefiners.push(require(path.join(__dirname, "/Models", file)));
 });
+//Funcion para sequelizar todos los modelos
+//NO FUNCIONA
 // modelDefiners.forEach((model: any) => model(sequelize));
-// let entries = Object.entries(sequelize.models);
-// let capsEntries = entries.map((entry) => [
-//   entry[0][0].toUpperCase() + entry[0].slice(1),
-//   entry[1],
-// ]);
-// sequelize.models = Object.fromEntries(capsEntries);
-const { Product, User } = sequelize.models;
 (0, Product_1.default)(sequelize);
+(0, User_1.default)(sequelize);
+const { Product, User } = sequelize.models;
+Product.belongsToMany(User, { through: "user_products", timestamps: false });
+User.belongsToMany(Product, { through: "user_products", timestamps: false });
 module.exports = Object.assign(Object.assign({}, sequelize.models), { conn: sequelize });

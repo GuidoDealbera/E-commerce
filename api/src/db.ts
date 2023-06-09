@@ -36,6 +36,8 @@ ProductModel(sequelize)
 UserModel(sequelize)
 
 const { Product, User} = sequelize.models;
+Product.belongsToMany(User, {through: "user_products", timestamps: false});
+User.belongsToMany(Product, {through: "user_products", timestamps: false});
 
 module.exports = {
   ...sequelize.models,
