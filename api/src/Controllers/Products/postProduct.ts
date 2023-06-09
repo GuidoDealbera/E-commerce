@@ -4,7 +4,8 @@ const { Product } = conn.models;
 
 const postProduct = async (req:any,res:any) =>{
     try {
-        const { code,name,description,photos,price,category,heading}= req.body
+        const { code,name,description,photos,price,category,heading,stock}= req.body
+        console.log(req.body)
         const check1 = await Product.findOne({where:{
             code: code
         }})
@@ -12,11 +13,19 @@ const postProduct = async (req:any,res:any) =>{
             name: name
         }})
         if(!check1 && !check2){
-            const response = await Product.create({name,description,code,photos,category,price,heading})
-            return res.json(response)
+            const newProduct = await Product.create(
+                {
+                name,description,code,photos
+                ,category,price,stock,heading
+            }
+                )
+            return res.json(newProduct)
         }
         if(check1){
-            return res.status()
+            return res.status(400).send("El codigo ya existe")
+        }
+        if(check2){
+            return res.status(401).send("Ya existe un producto con ese nombre")
         }
         
     } catch (error: any) {
