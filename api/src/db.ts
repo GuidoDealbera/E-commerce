@@ -5,6 +5,7 @@ const fs = require("fs");
 const path = require("path");
 import ProductModel from "./Models/Product"
 import UserModel from "./Models/User"
+import ReviewsModel from "./Models/Reviews"
 const { DB_CONEX } = process.env;
 
 const sequelize = new Sequelize(
@@ -34,8 +35,10 @@ fs.readdirSync(path.join(__dirname, "/Models"))
 
 ProductModel(sequelize)
 UserModel(sequelize)
+ReviewsModel(sequelize)
 
-const { Product, User} = sequelize.models;
+
+const { Product, User, Reviews} = sequelize.models;
 Product.belongsToMany(User, {through: "user_products", timestamps: false});
 User.belongsToMany(Product, {through: "user_products", timestamps: false});
 
