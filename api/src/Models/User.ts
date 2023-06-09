@@ -41,7 +41,7 @@ export default (sequelize: any) => {
                 type: DataTypes.STRING,
             },
             interests: {
-                type: DataTypes.ARRAY,
+                type: DataTypes.ARRAY(DataTypes.STRING),
             },
             seller: {
                 type: DataTypes.BOOLEAN,
