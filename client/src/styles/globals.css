@@ -18,5 +18,28 @@
 
 body {
   color: rgb(var(--foreground-rgb));
- 
+}
+
+.nav-bg{
+  background-color:#7C91DF;
+}
+
+.button1{
+  background-color: #334480;
+  color: white;
+  cursor: pointer;
+}
+
+.button1:hover{
+  background-color: #5264A8;
+  box-shadow: 0 0 2px black;
+}
+
+.button2{
+  color: white;
+}
+
+.title{
+  font-family: 'Italianno';
+  color: #7C91DF;
 }
