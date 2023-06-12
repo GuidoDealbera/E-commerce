@@ -1,8 +1,8 @@
 const { conn } =require("../../db");
 const { Product } = conn.models;
+import { Request, Response } from "express";
 
-
-const postProduct = async (req:any,res:any) =>{
+const postProduct = async (req: Request,res: Response) =>{
     try {
         const { code,name,description,photos,price,category,heading,stock}= req.body
         console.log(req.body)
