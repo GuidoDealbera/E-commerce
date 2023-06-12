@@ -1,8 +1,8 @@
 const { conn } = require("../../db");
 const { User } = conn.models;
 const bcrypt = require("bcrypt");
-
-const postUser = async (req: any, res: any) => {
+import { Request, Response } from "express";
+const postUser = async (req: Request,res: Response) => {
   try {
     let passwordHash;
     const { username, email, password, seller } = req.body;

@@ -1,7 +1,7 @@
 const { conn } = require("../../db");
 const { Reviews } = conn.models;
-
-const postReview = async (req: any, res: any) => {
+import { Request, Response } from "express";
+const postReview = async (req: Request,res: Response) => {
   try {
     const { score, comment, amountScores, averageScore, username } = req.body;
     if (!score || !comment || !amountScores || !averageScore || !username) {

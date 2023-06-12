@@ -1,7 +1,7 @@
 const { conn } = require("../../db");
 const {User, Product} = conn.models;
-
-const getUserById = async (req: any, res: any) => {
+import { Request, Response } from "express";
+const getUserById = async (req: Request,res: Response) => {
     try {
         const {id} = req.params;
         const user = await User.findOne({where: {

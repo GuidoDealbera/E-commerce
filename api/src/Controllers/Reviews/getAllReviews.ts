@@ -1,7 +1,7 @@
 const { conn } = require("../../db");
 const { Reviews, Product } = conn.models;
-
-const getAllReviews = async (req: any, res: any) => {
+import { Request, Response } from "express";
+const getAllReviews = async (req: Request,res: Response) => {
   try {
     const allReviews = await Reviews.findAll({include: {model: Product}});
     res.status(200).json(allReviews);
