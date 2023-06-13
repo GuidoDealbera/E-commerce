@@ -5,7 +5,6 @@ import { Request, Response } from "express";
 const postProduct = async (req: Request,res: Response) =>{
     try {
         const { code,name,description,photos,price,category,heading,stock}= req.body
-        console.log(req.body)
         const check1 = await Product.findOne({where:{
             code: code
         }})
