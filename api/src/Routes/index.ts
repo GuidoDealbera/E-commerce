@@ -9,6 +9,8 @@ import getProductByName from "../Controllers/Products/getProductByName";
 import postReview from "../Controllers/Reviews/postReviews";
 import getAllReviews from "../Controllers/Reviews/getAllReviews";
 import getProductById from "../Controllers/Products/getProductsById";
+import payment from "../Controllers/MercadoPago/payment";
+import initPayment from "../Controllers/MercadoPago/initPayment";
 
 router.get("/reviews", getAllReviews);
 router.get("/user/:id", getUserById);
@@ -18,5 +20,9 @@ router.get("/getProductByName", getProductByName);
 router.post("/postProduct", postProduct);
 router.post("/postUser", postUser);
 router.post("/postReview", postReview);
+
+//Probando MercadoPago
+router.post("/mp/:id", payment);
+router.post("/mp", initPayment);
 
 export default router;
