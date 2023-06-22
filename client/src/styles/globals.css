@@ -20,8 +20,27 @@ body {
   color: rgb(var(--foreground-rgb));
 }
 
-.nav-bg{
-  background-color:#7C91DF;
+.navbar {
+  background-color: #7C91DF;
+  border-bottom-left-radius: 100px;
+  position: relative;
+  overflow: hidden;
+  height: 140px;
+}
+
+.navbar::after {
+  content: "";
+  position: absolute;
+  bottom: -20px;
+  right: 0;
+  width: 100%;
+  height: 40px;
+  background-color: white;
+  border-top-right-radius: 60px 20px;
+}
+
+.navbar-content {
+  padding: 10px;
 }
 
 .button1{
