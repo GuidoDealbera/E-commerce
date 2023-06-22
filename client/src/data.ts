@@ -178,6 +178,7 @@ const productos=[
 
 ]
 
+export default productos
 
 // interface ProductAttributes {
 //     id: string;
