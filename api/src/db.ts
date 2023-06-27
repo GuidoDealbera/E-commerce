@@ -41,6 +41,8 @@ ReviewsModel(sequelize)
 const { Product, User, Reviews} = sequelize.models;
 Product.belongsToMany(User, {through: "user_products", timestamps: false});
 User.belongsToMany(Product, {through: "user_products", timestamps: false});
+Product.belongsToMany(User, {through: "user_favs", timestamps: false});
+User.belongsToMany(Product, {through: "user_favs", timestamps: false});
 Product.hasMany(Reviews)
 Reviews.hasOne(Product)
 module.exports = {

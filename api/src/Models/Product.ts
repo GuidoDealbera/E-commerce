@@ -60,7 +60,7 @@ export default (sequelize: Sequelize) => {
       },
       heading: {
         type: DataTypes.STRING,
-      },
+      }
     },
     {
       sequelize,
