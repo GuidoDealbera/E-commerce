@@ -36,7 +36,7 @@ class Server {
     try {
       await conn.authenticate();
       console.log("BD CONECTADA");
-      await conn.sync({ force: false });
+      await conn.sync({ force: true });
       console.log("BD Sincronizada");
     } catch (error) {
       console.error("Error conexion BD", error);
