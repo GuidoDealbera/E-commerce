@@ -13,6 +13,7 @@ interface UserAttributes {
   postalCode: string | null;
   interests: string[] | null;
   seller: boolean;
+  isActive: boolean;
 }
 
 export default (sequelize: Sequelize) => {
@@ -29,6 +30,7 @@ export default (sequelize: Sequelize) => {
     public postalCode!: string | null;
     public interests!: string[] | null;
     public seller!: boolean;
+    public isActive!: boolean;
   }
 
   User.init(
@@ -76,6 +78,10 @@ export default (sequelize: Sequelize) => {
         type: DataTypes.BOOLEAN,
         defaultValue: false,
       },
+      isActive: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: true,
+      }
     },
     {
       sequelize,
