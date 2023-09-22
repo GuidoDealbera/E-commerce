@@ -6,3 +6,56 @@
 html {
     @apply bg-gray-900 font-Poppins text-white
 }
+.inputs {
+  position: relative;
+}
+.inputs input{
+  width: 350px;
+  height: 50px;
+  border-radius: 6px;
+  font-size: 18px;
+  padding: 0 15px;
+  border: 2px solid gray;
+  color: white;
+  outline: none;
+  @apply bg-gray-900
+}
+.inputs label{
+  position: absolute;
+  top: 50%;
+  left: 15px;
+  transform: translateY(-50%);
+  color: gray;
+  font-size: 19px;
+  pointer-events: none;
+  transition: .2s;
+}
+input:focus + label{
+  top: 0;
+  left: 15px;
+  font-size: 16px;
+  padding: 0 5px;
+  color: rgb(59 130 200);
+  @apply bg-gray-900
+}
+input:focus{
+  border-color: rgb(59 130 200);
+}
+input:valid + label{
+  top: 0;
+  left: 15px;
+  font-size: 16px;
+  padding: 0 5px;
+  color: rgb(59 130 200);
+  @apply bg-gray-900
+}
+
+.inputs button{
+  position: absolute;
+  transition: .3s ease;
+  right: 10px;
+  transform: translateY(32%);
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
