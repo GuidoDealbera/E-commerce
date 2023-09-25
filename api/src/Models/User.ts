@@ -48,7 +48,7 @@ export default (sequelize: Sequelize) => {
       },
       username: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
         unique: true,
       },
       email: {

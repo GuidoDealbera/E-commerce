@@ -21,6 +21,7 @@ import putReview from "../Controllers/Reviews/putReview";
 import deleteUser from "../Controllers/Users/deleteUser";
 import deleteReview from "../Controllers/Reviews/deleteReview";
 import deleteProduct from "../Controllers/Products/deleteProduct";
+import getUserByEmail from "../Controllers/Users/getUserByEmail";
 
 //GET
 router.get("/reviews", getAllReviews);
@@ -35,7 +36,7 @@ router.get("/getCategories", getCategories);
 
 //POST
 router.post("/postProduct", postProduct);
-router.post("/postUser", postUser);
+router.post("/auth/login", postUser, getUserByEmail);
 router.post("/postReview", postReview);
 router.post("/postCategory", postCategory);
 

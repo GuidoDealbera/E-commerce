@@ -10,15 +10,14 @@ html {
   position: relative;
 }
 .inputs input{
-  width: 350px;
+  @apply bg-gray-900 w-[250px] sm:w-[350px];
   height: 50px;
   border-radius: 6px;
-  font-size: 18px;
+  font-size: 14px;
   padding: 0 15px;
   border: 2px solid gray;
   color: white;
   outline: none;
-  @apply bg-gray-900
 }
 .inputs label{
   position: absolute;

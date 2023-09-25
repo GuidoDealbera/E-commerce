@@ -1,13 +1,13 @@
 export interface User {
     id: string;
-    name: string;
-    lastName: string;
-    email: string;
-    password: string;
-    profilePhoto: string;
-    phone: number;
+    name: string | undefined;
+    lastName: string | undefined;
+    email: string | null;
+    password?: string;
+    profilePhoto: string | null;
+    phone: string | null;
     address: string;
-    postalCode: number;
+    postalCode: string;
 };
 
 export interface IRegisterUser {
