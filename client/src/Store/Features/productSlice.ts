@@ -25,13 +25,13 @@ const productSlice = createSlice({
         clearState: (state) => {
             state.productDetail = undefined;
         },
-        postProduct: (state, action) => {
+        addProduct: (state, action) => {
             const newProduct = action.payload;
             state.allProducts.push(newProduct);
         }
     },
 });
 
-export const {setAllProducts, setProductDetail, clearState, postProduct} = productSlice.actions;
+export const {setAllProducts, setProductDetail, clearState, addProduct} = productSlice.actions;
 
 export default productSlice.reducer;

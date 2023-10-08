@@ -1,16 +1,24 @@
 import { useState, useEffect, useRef } from "react";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { BiChevronDown } from "react-icons/bi";
+import {AiOutlineClose} from "react-icons/ai";
 import SearchBar from "../SearchBar/SearchBar";
 import Catalog from "../Menu/Catalog";
 import { categories } from "../../Utils/Features";
-import { useSelector } from "react-redux";
-import { RootState } from "../../Store/store";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import DrawerMenu from "../Menu/DrawerMenu";
+import { UserAuth } from "../../Context/AuthContext";
+import image from '../../assets/2a2e7f0f60b750dfb36c15c268d0118d.jpg';
 
 const NavBar: React.FC = () => {
   const navigate = useNavigate();
-  const { user } = useSelector((state: RootState) => state.user);
+  const location = useLocation();
+  const authContext = UserAuth();
+  let userLogin;
+  if(authContext) {
+    const {user} = authContext;
+    userLogin = user
+  }
   const catalogoRef = useRef<HTMLButtonElement>(null);
   const [open, setOpen] = useState<Boolean>(false);
   const [showDrawer, setShowDrawer] = useState<boolean>(false);
@@ -28,20 +36,30 @@ const NavBar: React.FC = () => {
       document.removeEventListener("click", clickFuera);
     };
   }, []);
+  const exclusedRoutes = ['/auth/login', '/register', '/forgot-password', '/recovery-password']
+  if(exclusedRoutes.includes(location.pathname)) return null
   return (
-    <div className="flex flex-row justify-between items-center sticky w-screen h-16 bg-[#7C91DF] px-4 gap-4">
+    <nav className="flex flex-row justify-between items-center sticky w-screen h-16 bg-[#7C91DF] px-4 gap-4">
       <button
         onClick={() => setShowDrawer(!showDrawer)}
-        className="text-black block md:hidden"
+        className={`${showDrawer ? "text-white z-[999]" : "text-black"} duration-150 block md:hidden`}
       >
-        <RxHamburgerMenu size={28} />
+        {
+          
+          !showDrawer ? 
+          <RxHamburgerMenu size={28} /> :
+          <AiOutlineClose size={28} />
+        }
       </button>
+      <DrawerMenu open={showDrawer} />
       <img
         src="/LOGO.png"
         alt="companyLogo"
         className="hidden md:block w-16 h-16 rounded-full"
       />
+      <div className="hidden sm:block">
       <SearchBar />
+      </div>
       <div className="hidden md:flex gap-16 items-center">
         <a href="#">Destacados</a>
         <button
@@ -61,18 +79,18 @@ const NavBar: React.FC = () => {
           <Catalog list={categories} open={open} />
         </button>
       </div>
-      {!user ? (
+      {!userLogin ? (
         <button onClick={() => navigate('/auth/login')} className="bg-gray-900 px-2 py-1 rounded-xl shadow shadow-black active:shadow-none duration-200">
           Acceder
         </button>
       ) : (
         <img
-          src={user.profilePhoto}
+          src={userLogin.photoURL ? userLogin.photoURL : image}
           alt="profilePhoto"
           className="w-12 h-12 rounded-full"
         />
       )}
-    </div>
+    </nav>
   );
 };
 

@@ -4,7 +4,7 @@ export interface User {
     lastName: string | undefined;
     email: string | null;
     password?: string;
-    profilePhoto: string | null;
+    profilePhoto: string | undefined;
     phone: string | null;
     address: string;
     postalCode: string;

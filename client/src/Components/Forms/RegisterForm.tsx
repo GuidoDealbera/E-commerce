@@ -1,8 +1,11 @@
 import {useState} from 'react';
 import {FaRegEyeSlash, FaEye} from 'react-icons/fa6';
 import Loader from '../Loader/Loader';
+import { useForms } from '../../Hooks/useForms';
 
 const RegisterForm: React.FC = () => {
+    const {register} = useForms();
+    const {input, onChange, onSubmit} = register()
     const [loading, setLoading] = useState<boolean>(false)
     const [showPassword, setShowPassword] = useState<boolean>(false)
     const [showConfirmPassword, setShowConfirmPassword] = useState<boolean>(false)
@@ -20,23 +23,23 @@ const RegisterForm: React.FC = () => {
     }; 
     const pageOne = (
         <>
+        <div className='flex justify-start items-center'>
+          <input type="checkbox" name="isSeller" checked={input.isSeller} className='accent-[#7C91DF]' onChange={onChange}/>
+          <label className='' style={{color: "white"}}>Registrarme como vendedor</label>
+        </div>
         <div className="inputs">
-          <input type="text" name="" required />
+          <input type="email" name="email" value={input.email} onChange={onChange} required />
           <label>Correo Electrónico*</label>
         </div>
         <div className="inputs">
-          <input type={showPassword ? "text" : "password"} name="" required />
+          <input type={showPassword ? "text" : "password"} name="password" value={input.password} onChange={onChange} required />
           <label>Contraseña*</label>
           <button type='button' onClick={() => setShowPassword(!showPassword)}>{showPassword ? <FaRegEyeSlash/> : <FaEye/>}</button>
         </div>
         <div className="inputs">
-          <input type={showConfirmPassword ? "text" : "password"} name="" required />
+          <input type={showConfirmPassword ? "text" : "password"} name="confirmPassword" value={input.confirmPassword} onChange={onChange} required />
           <label>Confirmar contraseña*</label>
           <button type='button' onClick={() => setShowConfirmPassword(!showConfirmPassword)}>{showConfirmPassword ? <FaRegEyeSlash/> : <FaEye/>}</button>
-        </div>
-        <div className="inputs">
-          <input type="text" name="" required />
-          <label>Número telefónico*</label>
         </div>
         <div className="flex justify-end gap-16">
           <button
@@ -45,9 +48,14 @@ const RegisterForm: React.FC = () => {
           >
             Cancelar
           </button>
+          {input.isSeller ? 
           <button onClick={setPages} type="button" className="bg-green-700 px-2 py-1 rounded-lg hover:bg-green-600 duration-150 active:bg-green-700">
             Continuar
-          </button>
+          </button> :
+          <button type="submit" className="bg-green-700 px-2 py-1 rounded-lg hover:bg-green-600 duration-150 active:bg-green-700">
+          Registrarme
+        </button>
+          }
         </div>
         </>
     );
@@ -72,19 +80,18 @@ const RegisterForm: React.FC = () => {
         </div>
         </>
     );
-    return !loading ? (
+    return (
     <div className="flex flex-col justify-center items-center min-h-screen">
-      <form className="flex flex-col gap-8">
+      <form className="flex flex-col gap-8" onSubmit={onSubmit}>
         <h1 className="font-medium text-xl text-center uppercase">
           Registrate
         </h1>
         {page === 0 && pageOne}
         {page === 1 && pageTwo}
       </form>
+      <Loader isLoading={loading}/>
     </div>
-  ) : (
-    <Loader/>
-  );
+    )
 };
 
 export default RegisterForm;

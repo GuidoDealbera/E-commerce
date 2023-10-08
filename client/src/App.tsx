@@ -1,21 +1,17 @@
-import Cards from "./Components/Cards/Cards";
-import LoginForm from "./Components/Forms/LoginForm";
-import RegisterForm from "./Components/Forms/RegisterForm";
-import NavBar from "./Components/NavBar/NavBar"
-import {Routes, Route, useLocation} from 'react-router-dom';
+import {useEffect} from 'react';
+import { useProductQuery } from "./Hooks/ApiHooks/useProductsQuery";
+import { AuthContextProvider } from "./Context/AuthContext";
+import AppRoutes from "./AppRoutes";
 
 function App() {
-  const location = useLocation()
-  const path = location.pathname
+  const {getAllProducts} = useProductQuery();
+  useEffect(() => {
+    getAllProducts();
+  }, [])
   return (
-    <>
-      {path !== '/auth/login' && path !== '/register' ? <NavBar/> : null}
-      <Routes>
-        <Route path="/" element={<Cards/>}/>
-        <Route path="/auth/login" element={<LoginForm/>}/>
-        <Route path="/register" element={<RegisterForm/>} />
-      </Routes>
-    </>
+    <AuthContextProvider>
+      <AppRoutes/>
+    </AuthContextProvider>
   )
 }
 

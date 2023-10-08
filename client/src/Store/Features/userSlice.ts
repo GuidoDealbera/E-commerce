@@ -1,4 +1,4 @@
-import { User } from "../../Interfaces/Users.interfaces";
+import { User } from "firebase/auth";
 import { createSlice } from "@reduxjs/toolkit";
 
 export interface UserState {
@@ -19,8 +19,7 @@ const userSlice = createSlice({
             state.allUsers = action.payload;
         },
         setUser: (state, action) => {
-            const user = state.allUsers.find((user) => user.id === action.payload);
-            state.user = user;
+            state.user = action.payload;
         },
         addUser: (state, action) => {
             state.allUsers.push(action.payload);
