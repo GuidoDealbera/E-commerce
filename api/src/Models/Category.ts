@@ -1,10 +1,6 @@
-import { timeStamp } from "console";
 import { DataTypes, Model, Sequelize } from "sequelize";
+import { CategoryAttributes } from "../Interfaces/interfaces";
 
-interface CategoryAttributes {
-  id: string;
-  name: string;
-}
 
 export default (sequelize: Sequelize) => {
   class Category

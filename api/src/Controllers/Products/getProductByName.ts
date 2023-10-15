@@ -1,6 +1,6 @@
-const { conn } =require("../../db");
+import { DataBase } from "../../db";
 import { Request, Response } from "express";
-const { Product, Reviews } = conn.models;
+const { Product, Reviews } = DataBase.conn.models;
 import { Op } from "sequelize";
 
 const getProductByName = async (req: Request,res: Response)=>{

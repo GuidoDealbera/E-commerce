@@ -1,13 +1,5 @@
 import { DataTypes, Model, Sequelize } from "sequelize";
-
-interface ReviewAttributes {
-    id: string,
-    score: number | 0,
-    comment: string | null,
-    amountScores: number | 0,
-    averageScore: number | 0,
-    username: string | null,
-};
+import { ReviewAttributes } from "../Interfaces/interfaces";
 
 export default (sequelize: Sequelize) => {
     class Reviews extends Model<ReviewAttributes> implements ReviewAttributes {

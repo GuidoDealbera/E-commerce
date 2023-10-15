@@ -3,8 +3,10 @@ import morgan from "morgan";
 import cors from "cors";
 import mercadopago from "mercadopago";
 import router from "./src/Routes/index";
-const { conn } = require("./src/db");
-require("dotenv").config();
+import { DataBase } from "./src/db";
+import dotenv from 'dotenv';
+dotenv.config()
+const { conn } = DataBase;
 const {ACCESS_TOKEN} = process.env;
 
 class Server {

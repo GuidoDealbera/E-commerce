@@ -1,6 +1,6 @@
-const { conn } = require("../../db");
-const { User } = conn.models;
-const bcrypt = require("bcrypt");
+import { DataBase } from '../../db';
+const { User } = DataBase.conn.models;
+import bcrypt from 'bcrypt'
 import { Request, Response } from "express";
 const postUser = async (req: Request,res: Response, next: any) => {
   try {

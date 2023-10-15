@@ -1,9 +1,6 @@
 import { DataTypes, Model, Sequelize } from "sequelize";
+import { PurchaseAttributes } from "../Interfaces/interfaces";
 
-interface PurchaseAttributes {
-id: string;
-totalPrice: number | 0;
-}
 
 export default (sequelize: Sequelize) => {
     class Purchase extends Model<PurchaseAttributes> implements PurchaseAttributes{

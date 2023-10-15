@@ -1,5 +1,5 @@
-const { conn } =require("../../db");
-const { Sale } = conn.models;
+import { DataBase } from "../../db";
+const { Sale } = DataBase.conn.models;
 import { Request, Response } from "express";
 
 const getAllSales= async (req:Request, res: Response) => {

@@ -1,9 +1,5 @@
 import { DataTypes, Model, Sequelize } from "sequelize";
-
-interface SaleAttributes {
-id: string;
-totalPrice: number | 0;
-}
+import { SaleAttributes } from "../Interfaces/interfaces";
 
 export default (sequelize: Sequelize) => {
     class Sale extends Model<SaleAttributes> implements SaleAttributes{

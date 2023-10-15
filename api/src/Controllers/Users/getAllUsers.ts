@@ -1,5 +1,5 @@
-const {conn} = require("../../db");
-const {User} = conn.models;
+import { DataBase } from "../../db";
+const {User} = DataBase.conn.models;
 import { Request, Response } from "express";
 
 const getAllUsers = async (req: Request, res: Response) => {

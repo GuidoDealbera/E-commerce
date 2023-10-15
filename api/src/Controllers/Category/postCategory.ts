@@ -1,5 +1,5 @@
-const {conn} = require("../../db");
-const {Category} = conn.models;
+import { DataBase } from "../../db";
+const {Category} = DataBase.conn.models;
 import { Request, Response } from "express";
 
 const postCategory = async (req: Request, res: Response) => {

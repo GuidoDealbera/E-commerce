@@ -1,24 +1,11 @@
 import { DataTypes, Model, Sequelize } from "sequelize";
-
-interface UserAttributes {
-  id: string;
-  name: string | null;
-  lastName: string | null;
-  username: string;
-  email: string;
-  password: string;
-  profilePhoto: string | null;
-  phone: string | null;
-  address: string | null;
-  postalCode: string | null;
-  interests: string[] | null;
-  seller: boolean;
-  isActive: boolean;
-}
+import { UserAttributes } from "../Interfaces/interfaces";
 
 export default (sequelize: Sequelize) => {
   class User extends Model<UserAttributes> implements UserAttributes {
     public id!: string;
+    public googleId!: string;
+    public facebookId!: string;
     public name!: string | null;
     public lastName!: string | null;
     public username!: string;
@@ -29,7 +16,6 @@ export default (sequelize: Sequelize) => {
     public address!: string | null;
     public postalCode!: string | null;
     public interests!: string[] | null;
-    public seller!: boolean;
     public isActive!: boolean;
   }
 
@@ -39,6 +25,12 @@ export default (sequelize: Sequelize) => {
         type: DataTypes.UUID,
         primaryKey: true,
         defaultValue: DataTypes.UUIDV4,
+      },
+      googleId: {
+        type: DataTypes.STRING,
+      },
+      facebookId: {
+        type: DataTypes.STRING,
       },
       name: {
         type: DataTypes.STRING,
@@ -73,10 +65,6 @@ export default (sequelize: Sequelize) => {
       },
       interests: {
         type: DataTypes.ARRAY(DataTypes.STRING),
-      },
-      seller: {
-        type: DataTypes.BOOLEAN,
-        defaultValue: false,
       },
       isActive: {
         type: DataTypes.BOOLEAN,

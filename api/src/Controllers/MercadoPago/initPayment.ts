@@ -1,5 +1,6 @@
 import mercadopago from 'mercadopago';
-require("dotenv").config();
+import dotenv from 'dotenv';
+dotenv.config();
 const {ACCESS_TOKEN} = process.env;
 import {Request, Response} from "express";
 

@@ -1,18 +1,18 @@
-const { Sequelize } = require("sequelize");
+import { Sequelize } from "sequelize";
 import dotenv from 'dotenv';
 dotenv.config();
-const fs = require("fs");
-const path = require("path");
+import fs from "fs";
+import path from "path";
 import ProductModel from "./Models/Product"
 import UserModel from "./Models/User"
 import ReviewsModel from "./Models/Reviews"
 import CategoryModel from "./Models/Category"
 import PurchaseModel from "./Models/Purchase"
 import SalesModel from "./Models/Sale"
-const { DB_CONEX } = process.env;
+const {DB_CONEX} = process.env;
 
 const sequelize = new Sequelize(
-  DB_CONEX,
+  `${DB_CONEX}`,
 
   {
     logging: false,
@@ -57,7 +57,7 @@ Product.hasMany(Reviews);
 Product.hasOne(Category);
 Category.hasMany(Product);
 Reviews.hasOne(Product);
-module.exports = {
+export const DataBase =  {
   ...sequelize.models,
   conn: sequelize,
 };

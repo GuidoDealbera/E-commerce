@@ -1,6 +1,6 @@
-const { conn } = require("../../db");
-const { Product, Reviews, Category } = conn.models;
+import { DataBase } from "../../db";
 import { Request, Response } from "express";
+const { Product, Reviews, Category } = DataBase.conn.models;
 
 const putProduct = async (req: Request, res: Response) => {
   try {

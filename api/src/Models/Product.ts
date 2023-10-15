@@ -1,16 +1,6 @@
 import { DataTypes, Model, Sequelize } from "sequelize";
+import { ProductAttributes } from "../Interfaces/interfaces";
 
-export interface ProductAttributes {
-  id: string;
-  name: string;
-  description: string | null;
-  code: string;
-  photos: string[];
-  category: string;
-  price: number | 0;
-  stock: number | 0;
-  heading: string | null;
-}
 
 export default (sequelize: Sequelize) => {
   class Product extends Model<ProductAttributes> implements ProductAttributes {
@@ -19,7 +9,6 @@ export default (sequelize: Sequelize) => {
     public description!: string | null;
     public code!:string;
     public photos!: string[];
-    public category!: string;
     public price!: number | 0;
     public stock!: number | 0;
     public heading!: string | null;
@@ -47,10 +36,6 @@ export default (sequelize: Sequelize) => {
       },
       photos: {
         type: DataTypes.ARRAY(DataTypes.STRING),
-      },
-      category: {
-        type: DataTypes.STRING,
-        allowNull: false,
       },
       price: {
         type: DataTypes.DECIMAL(5, 2),

@@ -1,5 +1,5 @@
-const { conn } = require("../../db");
-const { Reviews } = conn.models;
+import { DataBase } from "../../db";
+const { Reviews } = DataBase.conn.models;
 import { Request, Response } from "express";
 const postReview = async (req: Request,res: Response) => {
   try {
