@@ -2,7 +2,7 @@ import { DataBase } from '../../db';
 const { User } = DataBase.conn.models;
 import bcrypt from 'bcrypt'
 import { Request, Response } from "express";
-const postUser = async (req: Request,res: Response, next: any) => {
+const postUser = async (req: Request,res: Response) => {
   try {
     let passwordHash;
     const { email, password, seller } = req.body;
@@ -12,7 +12,7 @@ const postUser = async (req: Request,res: Response, next: any) => {
       },
     });
     if(check1) {
-      return next();
+      return res.status(405).send('Usuario existente')
     }
     if (password && password.length > 0) {
       passwordHash = bcrypt.hashSync(password, 10);

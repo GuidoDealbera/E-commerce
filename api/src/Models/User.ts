@@ -49,7 +49,7 @@ export default (sequelize: Sequelize) => {
       },
       password: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       profilePhoto: {
         type: DataTypes.STRING,

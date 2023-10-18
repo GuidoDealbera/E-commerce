@@ -3,9 +3,9 @@
     "version": "0.1.0",
     "private": true,
     "scripts": {
-        "dev": "tsc && npm start",
+        "start": "node dist/index.js",
         "build": "tsc",
-        "start": "nodemon -e ts --exec ts-node index.ts",
+        "dev": "ts-node-dev --respawn ./index.ts",
         "lint": "next lint"
     },
     "dependencies": {
@@ -16,9 +16,11 @@
         "bcrypt": "^5.1.0",
         "class-transformer": "^0.5.1",
         "class-validator": "^0.14.0",
+        "connect-session-sequelize": "^7.1.7",
         "cors": "^2.8.5",
         "dotenv": "^16.1.4",
         "express": "^4.18.2",
+        "express-session": "^1.17.3",
         "fs": "^0.0.1-security",
         "jsonwebtoken": "^9.0.2",
         "mercadopago": "^1.5.16",
@@ -29,6 +31,7 @@
         "passport-facebook": "^3.0.0",
         "passport-google-oauth": "^2.0.0",
         "passport-google-oauth20": "^2.0.0",
+        "passport-local": "^1.0.0",
         "path": "^0.12.7",
         "pg": "^8.11.0",
         "sequelize": "^6.32.0",
@@ -40,13 +43,16 @@
         "@types/bcrypt": "^5.0.0",
         "@types/cors": "^2.8.13",
         "@types/express": "^4.17.17",
+        "@types/express-session": "^1.17.8",
         "@types/jsonwebtoken": "^9.0.3",
         "@types/mercadopago": "^1.5.8",
         "@types/morgan": "^1.9.4",
         "@types/passport-facebook": "^3.0.1",
         "@types/passport-google-oauth20": "^2.0.12",
+        "@types/passport-local": "^1.0.36",
         "concurrently": "^8.1.0",
         "nodemon": "^2.0.22",
-        "ts-node": "^10.9.1"
+        "ts-node": "^10.9.1",
+        "ts-node-dev": "^2.0.0"
     }
 }

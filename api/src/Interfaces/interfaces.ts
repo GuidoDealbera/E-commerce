@@ -49,3 +49,8 @@ export interface SaleAttributes {
   id: string;
   totalPrice: number | 0;
 }
+
+export interface JWTPayload {
+  id: string;
+  email: string;
+}

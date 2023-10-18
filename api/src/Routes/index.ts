@@ -1,6 +1,7 @@
 import Router from "express";
 const router = Router();
-
+import dotenv from 'dotenv'
+dotenv.config()
 import getAllProducts from "../Controllers/Products/getAllProducts";
 import postUser from "../Controllers/Users/postUser";
 import postProduct from "../Controllers/Products/postProduct";
@@ -21,37 +22,50 @@ import putReview from "../Controllers/Reviews/putReview";
 import deleteUser from "../Controllers/Users/deleteUser";
 import deleteReview from "../Controllers/Reviews/deleteReview";
 import deleteProduct from "../Controllers/Products/deleteProduct";
-import getUserByEmail from "../Controllers/Users/getUserByEmail";
+import localStrategy from "../Middlewares/local.strategy";
+import authLogin from "../Controllers/Auth/authLogin";
+import passport from "../Middlewares/passportMiddleware";
+import authGoogleCallback from "../Controllers/Auth/authGoogle";
+const {FRONTEND_URL} = process.env;
 
-//GET
-router.get("/reviews", getAllReviews);
-router.get("/user/:id", getUserById);
+                                            //AUTHENTICATE
+//AUTH LOCAL
+router.post("/auth/login", localStrategy, authLogin);
+//AUTH GOOGLE
+router.get("/auth/google", passport.authenticate('google', { scope: ['email', 'profile'] }))
+router.get("/auth/google/callback", passport.authenticate('google', { failureRedirect: `${FRONTEND_URL}/auth/login` }), authGoogleCallback)
+
+//USERS
 router.get("/getAllUsers", getAllUsers);
+router.get("/user/:id", getUserById);
+router.post("/create/user", postUser);
+router.put("/putUser/:id", putUser);
+router.delete("/deleteUser/:id", deleteUser);
+
+//PRODUCTS
 router.get("/getAllProducts", getAllProducts);
-router.get("/getAllReviews", getAllReviews);
 router.get("/product/:id", getProductById);
 router.get("/getProductByName", getProductByName);
-router.get("/getSales", getAllSales);
-router.get("/getCategories", getCategories);
-
-//POST
 router.post("/postProduct", postProduct);
-router.post("/auth/login", postUser, getUserByEmail);
-router.post("/postReview", postReview);
-router.post("/postCategory", postCategory);
-
-//PUT
-router.put("/putUser/:id", putUser);
 router.put("/putProduct/:id", putProduct);
-router.put("/putReview/:id", putReview);
-
-//DELETE
-router.delete("/deleteUser/:id", deleteUser);
 router.delete("/deleteProduct/:id", deleteProduct);
+
+//REVIEWS
+router.get("/getAllReviews", getAllReviews);
+router.post("/postReview", postReview);
+router.put("/putReview/:id", putReview);
 router.delete("/deleteReview/:id", deleteReview);
+
+//SALES
+router.get("/getSales", getAllSales);
+
+//CATEGORIES
+router.get("/getCategories", getCategories);
+router.post("/postCategory", postCategory);
 
 //Probando MercadoPago
 router.post("/mp/:id", payment);
 router.post("/mp", initPayment);
+
 
 export default router;
