@@ -1,4 +1,4 @@
-import { IRegisterUser } from "../../Interfaces/Users.interfaces";
+import { ILogin } from "../../Interfaces/Auth.interfaces";
 
 export interface IErrorRegister {
   email?: string;
@@ -9,7 +9,7 @@ const passwordRegex: RegExp =
   /((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/;
 const emailRegex: RegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-export const registerValidate = (body: IRegisterUser) => {
+export const authLoginValidate = (body: ILogin) => {
   const errors: IErrorRegister = {};
   if (!emailRegex.test(body.email)) {
     errors.email = "Email inválido";

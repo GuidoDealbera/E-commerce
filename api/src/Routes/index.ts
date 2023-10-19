@@ -26,6 +26,12 @@ import localStrategy from "../Middlewares/local.strategy";
 import authLogin from "../Controllers/Auth/authLogin";
 import passport from "../Middlewares/passportMiddleware";
 import authGoogleCallback from "../Controllers/Auth/authGoogle";
+import { verifyToken } from "../Utils/jwt";
+import { UserAttributes } from "../Interfaces/interfaces";
+import { DataBase } from "../db";
+import authorizatedToken from "../Middlewares/authorizatedToken";
+import getProfile from "../Controllers/Users/getProfile";
+const {User} = DataBase.conn.models;
 const {FRONTEND_URL} = process.env;
 
                                             //AUTHENTICATE
@@ -38,6 +44,7 @@ router.get("/auth/google/callback", passport.authenticate('google', { failureRed
 //USERS
 router.get("/getAllUsers", getAllUsers);
 router.get("/user/:id", getUserById);
+router.get("/profile", authorizatedToken, getProfile);
 router.post("/create/user", postUser);
 router.put("/putUser/:id", putUser);
 router.delete("/deleteUser/:id", deleteUser);

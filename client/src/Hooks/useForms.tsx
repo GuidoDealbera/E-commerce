@@ -1,17 +1,10 @@
 import { useState } from "react";
-//import { useNavigate } from "react-router-dom";
-// import { useDispatch } from "react-redux";
+import { authLoginValidate } from "../Components/Forms/validate";
+import { ILogin } from "../Interfaces/Auth.interfaces";
+import { useAuthQuery } from "./ApiHooks/useAuthQuery";
 import { toast } from "sonner";
-import { registerValidate } from "../Components/Forms/validate";
-import { IRegisterUser } from "../Interfaces/Users.interfaces";
-import { UserAuth } from "../Context/AuthContext";
-
 export const useForms = () => {
-  const authContext = UserAuth();
-  const createUser = authContext?.register;
-  const login = authContext?.signIn;
-  //const navigate = useNavigate();
-  // const dispatch = useDispatch();
+  const {login} = useAuthQuery()
   const search = () => {
     const [input, setInput] = useState("");
     const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -35,7 +28,7 @@ export const useForms = () => {
     };
   };
   const signIn = () => {
-    const [input, setInput] = useState({
+    const [input, setInput] = useState<ILogin>({
       email: "",
       password: "",
     });
@@ -44,62 +37,45 @@ export const useForms = () => {
       setInput({
         ...input,
         [name]: value,
-      });
+      })
     };
     const onSubmit = async (event: React.SyntheticEvent) => {
       event.preventDefault();
-      const response = login && await login(input.email, input.password);
-      console.log(response);
+      const validate = await authLoginValidate(input);
+      if(!Object.keys(validate).length){
+        login(input)
+      } else {
+        validate.email ? toast.error(validate.email) : toast.error(validate.password)
+      }
     };
 
     return {
       input,
       onChange,
-      onSubmit
-    }
+      onSubmit,
+    };
   };
   const register = () => {
     const [input, setInput] = useState({
       email: "",
       password: "",
       confirmPassword: "",
-      isSeller: false
+      isSeller: false,
     });
-    const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      const {name, value, checked, type} = event.target;
-      setInput((prevInput) => ({
-        ...prevInput,
-        [name]: type === "checkbox" ? checked : value
-      }));
-    };
-    const body: IRegisterUser = {
-      email: input.email,
-      password: input.password
-    }
+    const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {};
     const onSubmit = async (event: React.SyntheticEvent) => {
       event.preventDefault();
-      const validate = await registerValidate(body);
-      if(!Object.keys(validate).length){
-        if(input.password === input.confirmPassword) {
-          createUser && await createUser(input.email, input.password);
-          //HABLAR CON HERNAN PARA VER SI CREAMOS USUARIOS EN NUESTRA DB O NO!
-      } else {
-        toast.error('Las contraseñas no coinciden')
-      }
-      } else {
-        validate.email && toast.error(validate.email) || validate.password && toast.error(validate.password)
-      }
     };
     return {
       input,
-      onChange, 
-      onSubmit
-    }
+      onChange,
+      onSubmit,
+    };
   };
-  
+
   return {
     search,
     signIn,
-    register
+    register,
   };
 };

@@ -18,7 +18,7 @@ const authGoogleCallback = async (req: Request, res: Response) => {
     }
     const payload: JWTPayload = { id: user.id, email: user.email };
     const token = generateToken(payload);
-    return res.redirect(`${FRONTEND_URL}?token=${token}`);
+    return res.redirect(`${FRONTEND_URL}/auth/callback?token=${token}`);
   } catch (error) {
     console.error(error);
     return res.status(500).json(error);

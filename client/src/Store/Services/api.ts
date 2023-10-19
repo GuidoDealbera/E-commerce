@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { Product } from "../../Interfaces/Products.interfaces";
+import { ILogin } from "../../Interfaces/Auth.interfaces";
 //importar interfaces para tipar lo que necesitemos
 
 const API_URL: string = "http://localhost:3001";
@@ -13,6 +14,18 @@ export const api = createApi({
   baseQuery,
   endpoints: (builder) => ({
     //acá se agregarán las funciones que necesitemos para hacer las petisiones al back;
+    //AUTH ENDPOINTS
+    authLocal: builder.mutation({
+      query: (body: ILogin) => ({
+        url: "/auth/login",
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body
+      }),
+    }),
     //PRODUCTS ENDPOINTS
     getAllProducts: builder.mutation({
       query: () => ({
@@ -47,6 +60,17 @@ export const api = createApi({
         },
       }),
     }),
+    getProfile: builder.mutation({
+      query: (token: string | null) => ({
+        url: "/profile",
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`
+        }
+      })
+    }),
     postUser: builder.mutation({
       query: (body: any) => ({
         url: "/postUser",
@@ -66,8 +90,10 @@ Por ejemplo:
 Si el endpoint se llama getUserById, lo que exportaremos se llama useGetUserByIdQuery (o Mutation al final en lugar de query)
 */
 export const {
+  useAuthLocalMutation,
   useGetAllProductsMutation,
   useGetAllUsersMutation,
   usePostProductMutation,
   usePostUserMutation,
+  useGetProfileMutation
 } = api;

@@ -11,8 +11,13 @@ const authLogin = async (req: Request, res: Response) => {
     };
     const accessToken = generateToken(payload);
     const response = {
-      accessToken,
-      user,
+      message: "Bienvenido a E-Commerce!",
+      credentials: {
+        accessToken,
+        id: user?.id,
+        email: user?.email,
+      },
+      profile: user,
     };
     res.status(200).json(response);
   } catch (error: any) {

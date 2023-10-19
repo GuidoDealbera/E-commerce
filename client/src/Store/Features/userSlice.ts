@@ -1,5 +1,5 @@
-import { User } from "firebase/auth";
 import { createSlice } from "@reduxjs/toolkit";
+import { User } from "../../Interfaces/Users.interfaces";
 
 export interface UserState {
     allUsers: User[];

@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import productReducer from './Features/productSlice';
 import userReducer from './Features/userSlice';
+import profileReducer from './Features/profileSlice';
 import { api } from "./Services/api";
 
 const persistedState = typeof localStorage !== 'undefined'
@@ -14,6 +15,7 @@ const store = configureStore({
         //los reducer podemos ponerles el nombre que queramos o el nombre con el cual lo importamos;
         product: productReducer,
         user: userReducer,
+        profile: profileReducer,
     },
     preloadedState: persistedState,
     middleware: (getDefaultMiddleware) => (
