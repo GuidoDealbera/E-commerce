@@ -31,6 +31,7 @@ import { UserAttributes } from "../Interfaces/interfaces";
 import { DataBase } from "../db";
 import authorizatedToken from "../Middlewares/authorizatedToken";
 import getProfile from "../Controllers/Users/getProfile";
+import isAdmin from "../Middlewares/isAdminMiddleware";
 const {User} = DataBase.conn.models;
 const {FRONTEND_URL} = process.env;
 
@@ -42,33 +43,33 @@ router.get("/auth/google", passport.authenticate('google', { scope: ['email', 'p
 router.get("/auth/google/callback", passport.authenticate('google', { failureRedirect: `${FRONTEND_URL}/auth/login` }), authGoogleCallback)
 
 //USERS
-router.get("/getAllUsers", getAllUsers);
+router.get("/getAllUsers", getAllUsers); //Ruta a proteger isAdmin
 router.get("/user/:id", getUserById);
 router.get("/profile", authorizatedToken, getProfile);
 router.post("/create/user", postUser);
-router.put("/putUser/:id", putUser);
-router.delete("/deleteUser/:id", deleteUser);
+router.put("/putUser/:id", putUser); //Ruta a proteger con authorizedToken
+router.delete("/deleteUser/:id", deleteUser); //Ruta a proteger con isAdmin
 
 //PRODUCTS
 router.get("/getAllProducts", getAllProducts);
 router.get("/product/:id", getProductById);
 router.get("/getProductByName", getProductByName);
-router.post("/postProduct", postProduct);
-router.put("/putProduct/:id", putProduct);
-router.delete("/deleteProduct/:id", deleteProduct);
+router.post("/postProduct", postProduct); //Ruta a proteger con authorizedToken
+router.put("/putProduct/:id", putProduct); //Ruta a proteger con authorizedToken
+router.delete("/deleteProduct/:id", deleteProduct); //Ruta a proteger con authorizedToken
 
 //REVIEWS
 router.get("/getAllReviews", getAllReviews);
-router.post("/postReview", postReview);
-router.put("/putReview/:id", putReview);
-router.delete("/deleteReview/:id", deleteReview);
+router.post("/postReview", postReview); //Ruta a proteger con authorizedToken
+router.put("/putReview/:id", putReview); //Ruta a proteger con authorizedToken
+router.delete("/deleteReview/:id", deleteReview); //Ruta a proteger con authorizedToken
 
 //SALES
 router.get("/getSales", getAllSales);
 
 //CATEGORIES
 router.get("/getCategories", getCategories);
-router.post("/postCategory", postCategory);
+router.post("/postCategory", postCategory); //Ruta a proteger con isAdmin
 
 //Probando MercadoPago
 router.post("/mp/:id", payment);

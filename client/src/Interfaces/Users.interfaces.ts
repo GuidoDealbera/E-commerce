@@ -1,18 +1,23 @@
 export interface User {
     id: string;
-    name: string | undefined;
-    lastName: string | undefined;
-    email: string | null;
-    password?: string;
-    profilePhoto: string | undefined;
+    googleId: string;
+    facebookId: string;
+    name: string | null;
+    lastName: string | null;
+    username: string;
+    email: string;
+    password: string;
+    isAdmin: boolean;
+    profilePhoto: string | null;
     phone: string | null;
-    address: string;
-    postalCode: string;
+    address: string | null;
+    postalCode: string | null;
+    interests: string[] | null;
+    isActive: boolean;
 };
 
 export interface IRegisterUser {
-    username?: string;
     email: string;
     password: string;
-    seller?: boolean; 
+    confirmPassword: string;
 }

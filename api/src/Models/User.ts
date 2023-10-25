@@ -6,6 +6,7 @@ export default (sequelize: Sequelize) => {
     public id!: string;
     public googleId!: string;
     public facebookId!: string;
+    public isAdmin!: boolean;
     public name!: string | null;
     public lastName!: string | null;
     public username!: string;
@@ -31,6 +32,10 @@ export default (sequelize: Sequelize) => {
       },
       facebookId: {
         type: DataTypes.STRING,
+      },
+      isAdmin: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
       },
       name: {
         type: DataTypes.STRING,

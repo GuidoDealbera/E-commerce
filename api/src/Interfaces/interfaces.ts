@@ -7,6 +7,7 @@ export interface UserAttributes {
   username: string;
   email: string;
   password: string;
+  isAdmin: boolean;
   profilePhoto: string | null;
   phone: string | null;
   address: string | null;

@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { Product } from "../../Interfaces/Products.interfaces";
 import { ILogin } from "../../Interfaces/Auth.interfaces";
+import { IRegisterUser } from "../../Interfaces/Users.interfaces";
 //importar interfaces para tipar lo que necesitemos
 
 const API_URL: string = "http://localhost:3001";
@@ -51,12 +52,13 @@ export const api = createApi({
     }),
     //USERS ENDPOINTS
     getAllUsers: builder.mutation({
-      query: () => ({
+      query: (token: string | null) => ({
         url: "/getAllUsers",
         method: "GET",
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
+          Authorization: `Bearer ${token}`
         },
       }),
     }),
@@ -72,8 +74,8 @@ export const api = createApi({
       })
     }),
     postUser: builder.mutation({
-      query: (body: any) => ({
-        url: "/postUser",
+      query: (body: IRegisterUser) => ({
+        url: "/create/user",
         method: "POST",
         headers: {
           "Content-Type": "application/json",

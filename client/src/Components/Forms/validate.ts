@@ -1,4 +1,5 @@
 import { ILogin } from "../../Interfaces/Auth.interfaces";
+import { IRegisterUser } from "../../Interfaces/Users.interfaces";
 
 export interface IErrorRegister {
   email?: string;
@@ -35,5 +36,27 @@ export const recoveryPasswordValidate = (body: {
   if (body.password !== body.confirmPassword) {
     errors.confirmPassword = "Las contraseñas no coinciden";
   }
+  return errors;
+};
+export interface IErrorRegisterBody {
+  email?: string;
+  password?: string;
+  confirmPassword?: string;
+}
+export const registerValidate = (body: IRegisterUser) => {
+  const errors: IErrorRegisterBody = {};
+  if (!emailRegex.test(body.email)) {
+    errors.email = "Ingrese un E-mail válido";
+  }
+  if (body.password !== body.confirmPassword) {
+    errors.confirmPassword = "Las contraseñas no coinciden";
+  }
+  if (/(?=.*[A-Z])/.test(body.password) && !/(?=.*\d)/.test(body.password)) {
+    errors.password = "La contraseña debe contener al menos un número";
+  }
+  if (/(?=.*\d)/.test(body.password) && !/(?=.*[A-Z])/.test(body.password)) {
+    errors.password = "La contraseña debe contener al menos una mayúsculas";
+  }
+
   return errors;
 };

@@ -5,34 +5,38 @@ import { Request, Response } from "express";
 const postUser = async (req: Request,res: Response) => {
   try {
     let passwordHash;
-    const { email, password, seller } = req.body;
+    const { email, password, isAdmin } = req.body;
     const check1 = await User.findOne({
       where: {
         email: email,
       },
     });
     if(check1) {
-      return res.status(405).send('Usuario existente')
+      return res.status(409).json({message: `El mail ${email} ya existe`})
     }
     if (password && password.length > 0) {
       passwordHash = bcrypt.hashSync(password, 10);
     }
     if (!check1) {
         let newUser;
-        if(seller){
+        if(isAdmin){
              newUser = await User.create({
               email: email,
               password: passwordHash ? passwordHash : password,
-              seller: true
+              isAdmin: true
             });
         }else{
             newUser = await User.create({
                 email: email,
                 password: passwordHash ? passwordHash : password,
-                seller: false
+                isAdmin: false
               });
         }
-      return res.status(201).json(newUser);
+        const response = {
+          message: "Registro exitoso",
+          user: newUser
+        }
+      return res.status(201).json(response);
     }
     if (check1) {
       return res.status(400).send("Email ya existente");

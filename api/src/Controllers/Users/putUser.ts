@@ -14,7 +14,7 @@ const putUser = async (req: Request, res: Response) => {
         address,
         postalCode,
         interests,
-        seller,
+        isAdmin,
       } = req.body;
     const user = await User.findByPk(id);
     if (!user) return res.status(400).json({ error: "Usuario no encontrado" });
@@ -29,7 +29,7 @@ const putUser = async (req: Request, res: Response) => {
           address,
           postalCode,
           interests,
-          seller: seller !== null && seller !== undefined ? seller : true,
+          isAdmin: isAdmin !== null && isAdmin !== undefined ? isAdmin : true,
         },
         { where: { id: id }, returning: true }
       );

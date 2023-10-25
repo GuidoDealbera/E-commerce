@@ -1,10 +1,15 @@
 import { useState } from "react";
-import { authLoginValidate } from "../Components/Forms/validate";
+import {
+  IErrorRegisterBody,
+  authLoginValidate,
+  registerValidate,
+} from "../Components/Forms/validate";
 import { ILogin } from "../Interfaces/Auth.interfaces";
 import { useAuthQuery } from "./ApiHooks/useAuthQuery";
 import { toast } from "sonner";
+import { IRegisterUser } from "../Interfaces/Users.interfaces";
 export const useForms = () => {
-  const {login} = useAuthQuery()
+  const { login, register: postUser } = useAuthQuery();
   const search = () => {
     const [input, setInput] = useState("");
     const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -33,19 +38,21 @@ export const useForms = () => {
       password: "",
     });
     const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      const {name, value} = event.target;
+      const { name, value } = event.target;
       setInput({
         ...input,
         [name]: value,
-      })
+      });
     };
     const onSubmit = async (event: React.SyntheticEvent) => {
       event.preventDefault();
       const validate = await authLoginValidate(input);
-      if(!Object.keys(validate).length){
-        login(input)
+      if (!Object.keys(validate).length) {
+        login(input);
       } else {
-        validate.email ? toast.error(validate.email) : toast.error(validate.password)
+        validate.email
+          ? toast.error(validate.email)
+          : toast.error(validate.password);
       }
     };
 
@@ -56,15 +63,29 @@ export const useForms = () => {
     };
   };
   const register = () => {
-    const [input, setInput] = useState({
+    const [input, setInput] = useState<IRegisterUser>({
       email: "",
       password: "",
       confirmPassword: "",
-      isSeller: false,
     });
-    const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {};
+    const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+      const { name, value } = event.target;
+      setInput({
+        ...input,
+        [name]: value,
+      });
+    };
     const onSubmit = async (event: React.SyntheticEvent) => {
       event.preventDefault();
+      const validate: IErrorRegisterBody = await registerValidate(input);
+      if (!Object.keys(validate).length) {
+        postUser(input);
+      } else {
+        if (validate.email) return toast.error(validate.email);
+        if (validate.password) return toast.error(validate.password);
+        if (validate.confirmPassword)
+          return toast.error(validate.confirmPassword);
+      }
     };
     return {
       input,

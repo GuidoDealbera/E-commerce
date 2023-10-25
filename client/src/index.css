@@ -4,7 +4,7 @@
 @tailwind utilities;
 
 html {
-    @apply bg-gray-900 font-Poppins text-white
+    @apply bg-gray-900 font-Poppins text-white;
 }
 .inputs {
   position: relative;
@@ -29,7 +29,7 @@ html {
   pointer-events: none;
   transition: .2s;
 }
-input:focus + label{
+.inputs input:focus + label{
   top: 0;
   left: 15px;
   font-size: 16px;
@@ -37,10 +37,10 @@ input:focus + label{
   color: rgb(17 24 39);
   @apply bg-[#3b82c8] rounded-full;
 }
-input:focus{
+.inputs input:focus{
   border-color: rgb(59 130 200);
 }
-input:valid + label{
+.inputs input:valid + label{
   top: 0;
   left: 15px;
   font-size: 16px;
@@ -49,7 +49,7 @@ input:valid + label{
   @apply bg-[#3b82c8] rounded-full;
 }
 
-input:valid {
+.inputs input:valid {
   border-color: rgb(59 130 200);
 }
 
@@ -90,4 +90,37 @@ input:valid {
     50%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,100% 100%,100% 100%)}
     75%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,0 100%,0 100%)}
     100% {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,0 100%,0 0)}
+}
+
+.checkbox {
+  @apply w-[250px] mg:w-[350px] gap-2;
+}
+
+::-webkit-scrollbar {
+  width: 10px; /* Ancho de la barra de desplazamiento */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgb(17 24 39); /* Color de la barra de desplazamiento */
+  border-radius: 6px; /* Bordes redondeados */
+}
+
+
+/* Barra de desplazamiento horizontal */
+::-webkit-scrollbar-track {
+  background: rgb(17 24 39); /* Color del fondo de la barra de desplazamiento */
+}
+
+::-webkit-scrollbar-track-piece:end {
+  background: rgb(17 24 39); /* Cambio de color al llegar al final de la barra de desplazamiento */
+}
+
+/* Barra de desplazamiento horizontal */
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-700;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-gray-600 /* Cambio de color al pasar el cursor por encima */
 }

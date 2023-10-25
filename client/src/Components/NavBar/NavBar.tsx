@@ -40,6 +40,7 @@ const NavBar: React.FC = () => {
     "/register",
     "/forgot-password",
     "/recovery-password",
+    "/prueba"
   ];
   if (exclusedRoutes.includes(location.pathname)) return null;
   return (
