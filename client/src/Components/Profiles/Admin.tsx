@@ -1,6 +1,6 @@
 import Sidebar from "./AdminComponents/Sidebar";
 import Header from "./AdminComponents/Header";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Profile from "./AdminComponents/Tabs/Profile";
 import Products from "./AdminComponents/Tabs/Products";
 import Sales from "./AdminComponents/Tabs/Sales";
@@ -13,11 +13,6 @@ import Deliveries from "./AdminComponents/Tabs/Deliveries";
 const AdminProfile = () => {
   const [showSidebar, setShowSidebar] = useState<boolean>(false);
   const [activeTab, setActiveTab] = useState<string>("profile");
-  
-  useEffect(() => {
-    console.log(showSidebar);
-    
-  }, [showSidebar])
 
   const renderTabs = () => {
     switch (activeTab) {
@@ -53,6 +48,7 @@ const AdminProfile = () => {
         <div className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
           <Header
             activeTab={activeTab}
+            setActiveTab={setActiveTab}
             showSidebar={showSidebar}
             setShowSidebar={setShowSidebar}
           />

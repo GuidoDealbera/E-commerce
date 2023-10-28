@@ -9,7 +9,9 @@ const putUser = async (req: Request, res: Response) => {
         name,
         lastName,
         username,
+        gender,
         profilePhoto,
+        coverPhoto,
         phone,
         address,
         postalCode,
@@ -24,7 +26,9 @@ const putUser = async (req: Request, res: Response) => {
           name,
           lastName,
           username,
+          gender,
           profilePhoto,
+          coverPhoto,
           phone,
           address,
           postalCode,
@@ -39,7 +43,8 @@ const putUser = async (req: Request, res: Response) => {
             model: Product
         },
       });
-
+      console.log(userUpdated);
+      
       return res.status(200).json(userUpdated);
     }
   } catch (error: any) {

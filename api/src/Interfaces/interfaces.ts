@@ -8,7 +8,9 @@ export interface UserAttributes {
   email: string;
   password: string;
   isAdmin: boolean;
+  gender: string;
   profilePhoto: string | null;
+  coverPhoto: string | null;
   phone: string | null;
   address: string | null;
   postalCode: string | null;
@@ -24,6 +26,7 @@ export interface ProductAttributes {
   photos: string[];
   price: number | 0;
   stock: number | 0;
+  salesCount: number | 0;
   heading: string | null;
 }
 

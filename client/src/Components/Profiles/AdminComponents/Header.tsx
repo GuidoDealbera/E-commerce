@@ -9,12 +9,14 @@ interface Props {
   activeTab: string;
   showSidebar: boolean;
   setShowSidebar: React.Dispatch<React.SetStateAction<boolean>>;
+  setActiveTab: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const Header: React.FC<Props> = ({
   activeTab,
   showSidebar,
   setShowSidebar,
+  setActiveTab
 }) => {
 
   return (
@@ -45,7 +47,7 @@ const Header: React.FC<Props> = ({
         <div className={`flex items-center ${activeTab !== 'products' && "w-full justify-end"} gap-3 min-[300px]:gap-7`}>
           <ul className="flex items-center gap-8 min-[300px]:gap-4">
             <NotificationDrop/>
-            <ProfileDrop/>            
+            <ProfileDrop setActiveTab={setActiveTab}/>            
           </ul>
         </div>
       </div>

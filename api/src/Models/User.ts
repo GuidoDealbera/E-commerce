@@ -10,9 +10,11 @@ export default (sequelize: Sequelize) => {
     public name!: string | null;
     public lastName!: string | null;
     public username!: string;
+    public gender!: string;
     public email!: string;
     public password!: string;
     public profilePhoto!: string | null;
+    public coverPhoto!: string | null;
     public phone!: string | null;
     public address!: string | null;
     public postalCode!: string | null;
@@ -48,6 +50,9 @@ export default (sequelize: Sequelize) => {
         allowNull: true,
         unique: true,
       },
+      gender: {
+        type: DataTypes.ENUM("male", "female", "other"),
+      },
       email: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -57,6 +62,9 @@ export default (sequelize: Sequelize) => {
         allowNull: true,
       },
       profilePhoto: {
+        type: DataTypes.STRING,
+      },
+      coverPhoto: {
         type: DataTypes.STRING,
       },
       phone: {

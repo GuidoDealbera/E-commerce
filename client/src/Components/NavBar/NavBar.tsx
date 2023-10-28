@@ -42,7 +42,7 @@ const NavBar: React.FC = () => {
     "/recovery-password",
     "/prueba"
   ];
-  if (exclusedRoutes.includes(location.pathname)) return null;
+  if (exclusedRoutes.includes(location.pathname) || (userAuth?.isAdmin && location.pathname === `/profile/${userAuth.id}`)) return null;
   return (
     <nav className="flex flex-row justify-between items-center sticky w-screen h-16 bg-[#7C91DF] px-4 gap-4">
       <button

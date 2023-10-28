@@ -11,6 +11,7 @@ export default (sequelize: Sequelize) => {
     public photos!: string[];
     public price!: number | 0;
     public stock!: number | 0;
+    public salesCount!: number | 0;
     public heading!: string | null;
   }
 
@@ -43,6 +44,9 @@ export default (sequelize: Sequelize) => {
       stock: {
         type: DataTypes.INTEGER,
       },
+      salesCount: {
+        type: DataTypes.INTEGER
+      }, 
       heading: {
         type: DataTypes.STRING,
       }

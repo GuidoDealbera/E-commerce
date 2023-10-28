@@ -2,10 +2,21 @@ import { HiOutlineLogout } from "react-icons/hi";
 import { PROFILE_MENU_LINKS } from "../data";
 import { useState, useEffect, useRef } from "react";
 import image from "../../../../assets/2a2e7f0f60b750dfb36c15c268d0118d.jpg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { BiChevronDown } from "react-icons/bi";
-const ProfileDrop: React.FC = () => {
+import { useSelector } from "react-redux";
+import { RootState } from "../../../../Store/store";
+import { useAuthQuery } from "../../../../Hooks/ApiHooks/useAuthQuery";
+
+interface Props {
+  setActiveTab: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const ProfileDrop: React.FC<Props> = ({ setActiveTab }) => {
+  const { logOut } = useAuthQuery();
+  const navigate = useNavigate();
   const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
+  const { user } = useSelector((state: RootState) => state.profile);
 
   const trigger = useRef<any>(null);
   const dropdown = useRef<any>(null);
@@ -24,7 +35,18 @@ const ProfileDrop: React.FC = () => {
     document.addEventListener("click", clickFuera);
     return () => document.removeEventListener("click", clickFuera);
   });
-
+  const rol = () => {
+    if (user?.gender === "male") return "Administrador";
+    if (user?.gender === "female") return "Administradora";
+    if (user?.gender === "other") return "Admin";
+  };
+  const toHome = (event: any) => {
+    if(event.target.id === 'profile'){
+      setActiveTab(event.target.id)
+    } else {
+      navigate('/')
+    }
+  }
   return (
     <div className="relative">
       <Link
@@ -34,10 +56,16 @@ const ProfileDrop: React.FC = () => {
         className="flex items-center gap-4"
       >
         <span className="hidden text-right lg:block">
-          <span className="block text-sm font-medium">Guido José Dealbera</span>
-          <span className="block text-xs">Fullstack Developer</span>
+          <span className="block text-sm font-medium">
+            {user?.name} {user?.lastName}
+          </span>
+          <span className="block text-xs text-gray-500 tracking-[2px] uppercase">{rol()}</span>
         </span>
-        <img src={image} alt="usuario" className="w-12 h-12 rounded-full" />
+        <img
+          src={user?.profilePhoto ? user.profilePhoto : image}
+          alt="usuario"
+          className="w-12 h-12 rounded-full"
+        />
         <BiChevronDown
           className={`hidden fill-current sm:block ${
             dropdownOpen && "rotate-180"
@@ -53,34 +81,40 @@ const ProfileDrop: React.FC = () => {
         } transition-all duration-300`}
       >
         <ul
-          className={`flex flex-col gap-5 border-b px-6 py-7 ${
+          className={`flex flex-col gap-0.5 border-b ${
             !dropdownOpen && "hidden"
           }`}
         >
           {PROFILE_MENU_LINKS.map((item) => (
-            <li key={item.key}>
-              <Link
-                to="#"
-                className="flex items-center gap-3.5 text-sm font-medium duration-300 hover:text-blue-700 ease-in-out"
+            <li
+              key={item.key}
+              className="px-4 py-2 hover:bg-gray-900 duration-200"
+            >
+              <button
+                id={item.key}
+                onClick={toHome}
+                className="flex items-center gap-4"
               >
                 <span>{item.icon}</span>
                 {item.label}
-              </Link>
+              </button>
             </li>
           ))}
         </ul>
-        <section className={`flex items-center px-6 ${
+        <section
+          className={`flex items-center px-4 py-2 hover:bg-gray-900 duration-200 ${
             !dropdownOpen && "hidden"
-          }`}>
-          <Link
-            to="#"
-            className="flex items-center gap-3.5 text-sm font-medium duration-300 hover:text-red-700 ease-in-out"
+          }`}
+        >
+          <button
+            onClick={logOut}
+            className="flex items-center gap-4 text-red-700"
           >
             <span>
               <HiOutlineLogout />
             </span>
             Cerrar Sesión
-          </Link>
+          </button>
         </section>
       </div>
     </div>
