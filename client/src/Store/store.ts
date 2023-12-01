@@ -1,34 +1,30 @@
-import { configureStore } from "@reduxjs/toolkit";
-import productReducer from './Features/productSlice';
-import userReducer from './Features/userSlice';
-import profileReducer from './Features/profileSlice';
+import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
+import rootReducer from "./rootReducer";
+import { persistStore, persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
 import { api } from "./Services/api";
 
-const persistedState = typeof localStorage !== 'undefined'
-  ? (localStorage.getItem('reduxState') ? JSON.parse(localStorage.getItem('reduxState')!) : {})
-  : {};
+const persistConfig = {
+  key: "root",
+  storage,
+  whitelist: [
+    "product",
+    "profile",
+    "user"
+  ],
+};
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+const persistMiddleware = getDefaultMiddleware({
+  serializableCheck: false,
+}).concat(api.middleware);
 
 const store = configureStore({
-    reducer: {
-        [api.reducerPath]: api.reducer,
-        //acá van los reducers que exportemos...
-        //los reducer podemos ponerles el nombre que queramos o el nombre con el cual lo importamos;
-        product: productReducer,
-        user: userReducer,
-        profile: profileReducer,
-    },
-    preloadedState: persistedState,
-    middleware: (getDefaultMiddleware) => (
-        getDefaultMiddleware().concat(api.middleware)
-    )
+  reducer: persistedReducer,
+  middleware: persistMiddleware,
 });
-
-store.subscribe(() => {
-    const state = store.getState();
-    localStorage.setItem('reduxState', JSON.stringify(state));
-  });
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
-
+export const persistor = persistStore(store)
 export default store;

@@ -1,5 +1,3 @@
-import {useEffect} from 'react';
-import { useProductQuery } from "./Hooks/ApiHooks/useProductsQuery";
 import { Route, Routes } from "react-router-dom";
 import Home from "./Components/Home/Home";
 import LoginForm from "./Components/Forms/LoginForm";
@@ -12,10 +10,7 @@ import AuthCallback, { Profiles } from './AuthCallback';
 import AdminProfile from './Components/Profiles/Admin';
 
 function App() {
-  const {getAllProducts} = useProductQuery();
-  useEffect(() => {
-    getAllProducts();
-  }, [])
+
   return (
     <>
           <NavBar/>
