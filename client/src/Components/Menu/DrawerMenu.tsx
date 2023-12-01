@@ -8,7 +8,7 @@ const DrawerMenu: React.FC<DrawerProps> = ({ open }) => {
   const {logOut} = useAuthQuery();
   return (
     <div
-      className={`flex flex-col items-center pt-16 md:hidden text-white absolute z-[999px] w-2/3 h-screen bg-gray-950 top-0 duration-300 ${
+      className={`flex flex-col items-center pt-16 md:hidden text-white absolute z-[999px] w-[280px] sm:w-[400px] h-screen bg-gray-950 top-0 duration-300 ${
         open ? "left-0" : "left-[-100%]"
       }`}
     >

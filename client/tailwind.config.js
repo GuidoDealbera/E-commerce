@@ -6,16 +6,18 @@ export default {
     "./src/Components/**/*.{js,ts,jsx,tsx}",
     "./src/Hooks/**/*.{js,ts,jsx,tsx}",
   ],
+  darkMode: "class",
   theme: {
     extend: {
       fontFamily: {
-        Poppins: "Poppins",
+        Poppins: "Poppins, sans-serif",
+        Jost: "Jost, sans-serif",
       },
       screens: {
-        "mg": {min: "370px"}
+        "md/lg": {min: "920px"},
+        mg: { min: "420px" },
       },
     },
   },
   plugins: [],
-}
-
+};

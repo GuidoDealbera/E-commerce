@@ -39,7 +39,7 @@ export default (sequelize: Sequelize) => {
         type: DataTypes.ARRAY(DataTypes.STRING),
       },
       price: {
-        type: DataTypes.DECIMAL(5, 2),
+        type: DataTypes.DECIMAL(15, 2),
       },
       stock: {
         type: DataTypes.INTEGER,

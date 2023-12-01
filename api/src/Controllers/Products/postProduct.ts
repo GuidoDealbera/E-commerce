@@ -4,7 +4,7 @@ import { Request, Response } from "express";
 
 const postProduct = async (req: Request,res: Response) =>{
     try {
-        const {name,description,photos,price,category,heading,stock}= req.body
+        const {name,description,photos,price,heading,stock}= req.body
        
         const check2 = await Product.findOne({where:{
             name: name
@@ -13,7 +13,7 @@ const postProduct = async (req: Request,res: Response) =>{
             const newProduct = await Product.create(
                 {
                 name,description,photos
-                ,category,price,stock,heading //hay que quitar "CATEGORY" ya que será una tabla aparte en la DB
+                ,price,stock,heading
             }
                 )
             return res.json(newProduct)
