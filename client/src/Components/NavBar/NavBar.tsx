@@ -2,7 +2,7 @@ import { useState } from "react";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { AiOutlineClose } from "react-icons/ai";
 import SearchBar from "../SearchBar/SearchBar";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate, Outlet } from "react-router-dom";
 import DrawerMenu from "../Menu/DrawerMenu";
 import image from "../../assets/2a2e7f0f60b750dfb36c15c268d0118d.jpg";
 import { useSelector } from "react-redux";
@@ -12,24 +12,13 @@ import Switch from "../Switch/Switch";
 
 const NavBar: React.FC = () => {
   const navigate = useNavigate();
-  const location = useLocation();
   const { user: userAuth } = useSelector((state: RootState) => state.profile);
   const [showProfileMenu, setShowProfileMenu] = useState<boolean>(false);
   const [showDrawer, setShowDrawer] = useState<boolean>(false);
-  const exclusedRoutes = [
-    "/auth/login",
-    "/auth/callback",
-    "/register",
-    "/forgot-password",
-    "/recovery-password",
-    "/prueba",
-  ];
-  if (
-    exclusedRoutes.includes(location.pathname) ||
-    (userAuth?.isAdmin && location.pathname === `/profile/${userAuth.id}`)
-  )
-    return null;
+  
   return (
+    <div>
+
     <nav className="flex justify-between items-center sticky py-1 w-screen h-24 bg-[#FF9315] dark:bg-[#403B36] font-Jost px-4 gap-4">
       <section className="flex items-center gap-5">
       <button onClick={() => setShowDrawer(!showDrawer)} className="block md/lg:hidden relative z-50">
@@ -71,6 +60,8 @@ const NavBar: React.FC = () => {
         }
       </div>
     </nav>
+    <Outlet/>
+    </div>
   );
 };
 
