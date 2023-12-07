@@ -10,8 +10,6 @@ import getProductByName from "../Controllers/Products/getProductByName";
 import postReview from "../Controllers/Reviews/postReviews";
 import getAllReviews from "../Controllers/Reviews/getAllReviews";
 import getProductById from "../Controllers/Products/getProductsById";
-import payment from "../Controllers/MercadoPago/payment";
-import initPayment from "../Controllers/MercadoPago/initPayment";
 import getAllSales from "../Controllers/Sales/getAllSales";
 import postCategory from "../Controllers/Category/postCategory";
 import getCategories from "../Controllers/Category/getCategories";
@@ -32,6 +30,7 @@ import { DataBase } from "../db";
 import authorizatedToken from "../Middlewares/authorizatedToken";
 import getProfile from "../Controllers/Users/getProfile";
 import isAdmin from "../Middlewares/isAdminMiddleware";
+import payment, { receiveWebhook } from "../Controllers/MercadoPago/payment.controller";
 const {User} = DataBase.conn.models;
 const {FRONTEND_URL} = process.env;
 
@@ -72,8 +71,11 @@ router.get("/getCategories", getCategories);
 router.post("/postCategory", postCategory); //Ruta a proteger con isAdmin
 
 //Probando MercadoPago
-router.post("/mp/:id", payment);
-router.post("/mp", initPayment);
+router.post("/create-order", payment)
+router.get("/success", (req, res) => res.send("success"))
+router.get("/failure", (req, res) => res.send("failure"))
+router.get("/pending", (req, res) => res.send("pending"))
+router.post("/webhook", receiveWebhook)
 
 
 export default router;
