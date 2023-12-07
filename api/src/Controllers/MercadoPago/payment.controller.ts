@@ -29,11 +29,12 @@ const payment = async (req: Request, res: Response) => {
         },
       ],
       back_urls: {
-        success: `${BACKEND_URL}/success`,
+        success: `${FRONTEND_URL}/success`,
         failure: `${BACKEND_URL}/failure`,
         pending: `${BACKEND_URL}/pending`,
       },
       notification_url: "https://3480-200-122-21-76.ngrok.io/webhook",
+      auto_return: "approved",
     });
 
     res.send(result.body);
