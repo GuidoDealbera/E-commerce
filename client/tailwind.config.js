@@ -14,8 +14,8 @@ export default {
         Jost: "Jost, sans-serif",
       },
       screens: {
-        "md/lg": {min: "920px"},
-        mg: { min: "420px" },
+        "md/lg": "920px",
+        mg: "420px",
       },
     },
   },
